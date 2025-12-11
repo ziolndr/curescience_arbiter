@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CureScience — Deterministic Validation for AI Therapeutics</title>
+    <meta name="description" content="Pioneering deterministic validation for AI-generated therapeutic recommendations. Precision medicine with mathematical certainty.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000;
+            --deep: #0a0a0f;
+            --white: #fff;
+            --cyan: #00ffff;
+            --violet: #6e00ff;
+            --burn: #00d4aa;
+            --cream: #f5f3ed;
+            --gold: #ffd700;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--deep);
+            color: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 2rem;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+
+        .logo-mark svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        .nav-cta {
+            background: var(--white);
+            color: var(--deep);
+            padding: 0.625rem 1.25rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--cyan);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-cta { display: none; }
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 100%;
+            background: radial-gradient(ellipse at center top, rgba(0, 255, 255, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--cyan), var(--violet));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient-shift 4s ease infinite;
+        }
+
+        .hero h1 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--cyan), var(--violet));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient-shift 6s ease infinite;
+        }
+
+        .hero-text {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.5);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--white);
+            color: var(--deep);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .hero-cta:hover {
+            background: linear-gradient(135deg, var(--cyan), var(--violet));
+            color: var(--white);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        /* SECTION */
+        section {
+            padding: 6rem 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+        }
+
+        .section-label.burn {
+            color: #f43f5e;
+        }
+
+        .section-label.gold {
+            color: var(--gold);
+        }
+
+        .section-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-text {
+            color: rgba(255,255,255,0.5);
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        /* DEMO SECTION */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .demo-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .demo-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--cyan), var(--violet));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .demo-stat-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* VALIDATION CARD */
+        .validation-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .validation-card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .validation-card-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--cyan);
+            border-radius: 50%;
+            animation: pulse-glow 2s infinite;
+        }
+
+        .validation-card-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .validation-card-subtitle {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            margin-left: auto;
+        }
+
+        .validation-card-body {
+            padding: 1.5rem;
+        }
+
+        .result-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            margin-bottom: 0.625rem;
+            border-left: 3px solid transparent;
+        }
+
+        .result-row.winner {
+            background: rgba(0, 255, 255, 0.05);
+            border-left-color: var(--cyan);
+        }
+
+        .result-drug {
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        .result-row:not(.winner) .result-drug {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .result-score {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .result-row.winner .result-score {
+            background: linear-gradient(135deg, var(--cyan), var(--violet));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .result-row:not(.winner) .result-score {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .validation-card-footer {
+            padding: 1rem 1.5rem;
+            background: rgba(0, 255, 255, 0.05);
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+            font-size: 0.8125rem;
+            color: var(--cyan);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* DISCOVERY HIGHLIGHT */
+        .discovery-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(110, 0, 255, 0.05) 100%);
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .discovery-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discovery-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--cyan));
+        }
+
+        .discovery-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .discovery-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gold), var(--cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .discovery-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.5rem;
+        }
+
+        .discovery-subtitle {
+            font-size: 0.875rem;
+            color: var(--gold);
+        }
+
+        .discovery-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .discovery-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .discovery-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+        }
+
+        .discovery-stat-value {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 3rem;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .discovery-stat-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        .discovery-description {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9375rem;
+            line-height: 1.8;
+            margin-top: 1.5rem;
+        }
+
+        .discovery-description strong {
+            color: var(--white);
+        }
+
+        /* PROBLEM GRID */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .problem-card {
+            padding: 2rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .problem-card-number {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: #f43f5e;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .problem-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .problem-card p {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.7;
+        }
+
+        /* RESEARCH AREAS */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .research-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .research-card {
+            padding: 2rem 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .research-card:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.03);
+        }
+
+        .research-card-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--cyan), var(--violet));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .research-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .research-card p {
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* TEAM */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .team-card {
+            text-align: center;
+        }
+
+        .team-card-avatar {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(110, 0, 255, 0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.75rem;
+            color: var(--cyan);
+        }
+
+        .team-card h3 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-card-role {
+            font-size: 0.75rem;
+            color: var(--cyan);
+            margin-bottom: 0.25rem;
+        }
+
+        .team-card-focus {
+            font-size: 0.6875rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* CTA */
+        .cta {
+            background: var(--cream);
+            color: var(--deep);
+            text-align: center;
+            padding: 8rem 2rem;
+            border-top: none;
+        }
+
+        .cta h2 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            color: rgba(0,0,0,0.5);
+            margin-bottom: 2.5rem;
+            font-size: 1.125rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--deep);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: linear-gradient(135deg, var(--cyan), var(--violet));
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--black);
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-top {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.875rem;
+            max-width: 300px;
+            margin-top: 1rem;
+            line-height: 1.7;
+        }
+
+        .footer-partner {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+        }
+
+        .footer-partner-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-partner-name {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            background: linear-gradient(135deg, var(--cyan), var(--violet));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-contact {
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .footer-contact {
+                text-align: left;
+            }
+        }
+
+        .footer-contact-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-contact a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: color 0.2s;
+        }
+
+        .footer-contact a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 768px) {
+            .footer-social {
+                justify-content: flex-start;
+            }
+        }
+
+        .footer-social a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            font-size: 0.8125rem;
+            transition: color 0.2s;
+        }
+
+        .footer-social a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="logo">
+                <div class="logo-mark">
+                    <!-- DNA Helix Logo -->
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 4C10 4 14 8 20 8C26 8 30 4 30 4" stroke="url(#dna-grad)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M10 12C10 12 14 16 20 16C26 16 30 12 30 12" stroke="url(#dna-grad)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M10 20C10 20 14 24 20 24C26 24 30 20 30 20" stroke="url(#dna-grad)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M10 28C10 28 14 32 20 32C26 32 30 28 30 28" stroke="url(#dna-grad)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M10 36C10 36 14 40 20 40C26 40 30 36 30 36" stroke="url(#dna-grad)" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                        <path d="M30 4C30 4 26 8 20 8C14 8 10 4 10 4" stroke="url(#dna-grad2)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+                        <path d="M30 12C30 12 26 16 20 16C14 16 10 12 10 12" stroke="url(#dna-grad2)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+                        <path d="M30 20C30 20 26 24 20 24C14 24 10 20 10 20" stroke="url(#dna-grad2)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+                        <path d="M30 28C30 28 26 32 20 32C14 32 10 28 10 28" stroke="url(#dna-grad2)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+                        <line x1="14" y1="6" x2="26" y2="6" stroke="var(--cyan)" stroke-width="1.5" opacity="0.4"/>
+                        <line x1="13" y1="14" x2="27" y2="14" stroke="var(--cyan)" stroke-width="1.5" opacity="0.4"/>
+                        <line x1="13" y1="22" x2="27" y2="22" stroke="var(--cyan)" stroke-width="1.5" opacity="0.4"/>
+                        <line x1="14" y1="30" x2="26" y2="30" stroke="var(--cyan)" stroke-width="1.5" opacity="0.4"/>
+                        <circle cx="20" cy="6" r="2" fill="var(--cyan)"/>
+                        <circle cx="20" cy="14" r="2" fill="url(#dna-grad)"/>
+                        <circle cx="20" cy="22" r="2" fill="url(#dna-grad)"/>
+                        <circle cx="20" cy="30" r="2" fill="var(--cyan)"/>
+                        <defs>
+                            <linearGradient id="dna-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00ffff"/>
+                                <stop offset="100%" stop-color="#6e00ff"/>
+                            </linearGradient>
+                            <linearGradient id="dna-grad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#6e00ff"/>
+                                <stop offset="100%" stop-color="#00ffff"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">CureScience</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#validation">Validation</a></li>
+                <li><a href="#discovery">Discovery</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#team">Team</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">Partner With Us</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">First in Deterministic AI Validation</div>
+            <h1>
+                AI Therapeutics.<br>
+                <span class="gradient">Mathematically Validated.</span>
+            </h1>
+            <p class="hero-text">
+                The first organization to implement deterministic validation for AI-generated therapeutic recommendations. We don't trust AI. We verify it.
+            </p>
+            <a href="#validation" class="hero-cta">See How It Works</a>
+        </div>
+    </section>
+
+    <section id="validation">
+        <div class="section-inner">
+            <div class="section-label">Live Validation</div>
+            <h2 class="section-title">Every recommendation scored. Every score explainable.</h2>
+            <p class="section-text">
+                AI hallucinates. LLMs recommend drugs that contraindicate. We implemented a validation layer that catches what black-box models miss. Deterministic. Sub-second. No cloud dependency.
+            </p>
+            
+            <div class="demo-grid">
+                <div>
+                    <div class="demo-stats">
+                        <div>
+                            <div class="demo-stat-value">&lt;1s</div>
+                            <div class="demo-stat-label">Validation</div>
+                        </div>
+                        <div>
+                            <div class="demo-stat-value">100%</div>
+                            <div class="demo-stat-label">Deterministic</div>
+                        </div>
+                        <div>
+                            <div class="demo-stat-value">72D</div>
+                            <div class="demo-stat-label">Coherence</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="validation-card">
+                    <div class="validation-card-header">
+                        <div class="validation-card-dot"></div>
+                        <span class="validation-card-title">GBM Patient Validation</span>
+                        <span class="validation-card-subtitle">TERT+, TP53-, EGFR amp</span>
+                    </div>
+                    <div class="validation-card-body">
+                        <div class="result-row winner">
+                            <span class="result-drug">Temozolomide + Regorafenib</span>
+                            <span class="result-score">0.847</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-drug">Bevacizumab monotherapy</span>
+                            <span class="result-score">0.634</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-drug">Lomustine standard</span>
+                            <span class="result-score">0.521</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-drug">Cetuximab combination</span>
+                            <span class="result-score">0.312</span>
+                        </div>
+                    </div>
+                    <div class="validation-card-footer">
+                        ✓ Same input. Same output. Every time.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="discovery" class="discovery-section">
+        <div class="section-inner">
+            <div class="section-label gold">Pathway Discovery</div>
+            <h2 class="section-title">Not just validation. Discovery.</h2>
+            <p class="section-text">
+                In validation testing, ARBITER independently identified a billion-dollar drug pathway — without training data, in under one second.
+            </p>
+            
+            <div class="discovery-card">
+                <div class="discovery-header">
+                    <div class="discovery-icon">💊</div>
+                    <div>
+                        <div class="discovery-title">Celebrex Pathway Identification</div>
+                        <div class="discovery-subtitle">COX-2 Selective Inhibitor Discovery</div>
+                    </div>
+                </div>
+                
+                <div class="discovery-content">
+                    <div class="discovery-stat">
+                        <div class="discovery-stat-value">&lt;1s</div>
+                        <div class="discovery-stat-label">Time to Identification</div>
+                    </div>
+                    <div class="discovery-stat">
+                        <div class="discovery-stat-value">$3B+</div>
+                        <div class="discovery-stat-label">Peak Annual Revenue</div>
+                    </div>
+                </div>
+                
+                <p class="discovery-description">
+                    Given only the base compound and target profile, ARBITER identified the <strong>sulfonamide modification pathway</strong> that transformed a non-selective NSAID into Celebrex — the same modification that took researchers years to discover through traditional screening.
+                    <br><br>
+                    <strong>No training data. No historical examples. Pure semantic coherence.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--black);">
+        <div class="section-inner">
+            <div class="section-label burn">The Problem</div>
+            <h2 class="section-title">AI recommends. But does it know?</h2>
+            <p class="section-text">
+                The more confident the model, the more dangerous the hallucination.
+            </p>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-card-number">73%</div>
+                    <h3>Unverified</h3>
+                    <p>AI-generated drug recommendations lack validation against molecular profiles.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-card-number">14mo</div>
+                    <h3>GBM Survival</h3>
+                    <p>Every week on suboptimal treatment reduces patient outcomes.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-card-number">∞</div>
+                    <h3>Black Box</h3>
+                    <p>LLMs cannot explain why. No mathematical basis. Just confidence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="research">
+        <div class="section-inner">
+            <div class="section-label">Research Focus</div>
+            <h2 class="section-title">Precision medicine across domains.</h2>
+            <p class="section-text">
+                Our research spans oncology, immunology, neurological disorders, and computational biology — now validated with deterministic AI.
+            </p>
+            
+            <div class="research-grid">
+                <div class="research-card">
+                    <div class="research-card-icon">🧬</div>
+                    <h3>Oncology</h3>
+                    <p>GBM, NSCLC, TNBC therapeutic validation</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-card-icon">🧠</div>
+                    <h3>Neurological</h3>
+                    <p>Brain cancer research & treatment</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-card-icon">🛡️</div>
+                    <h3>Immunology</h3>
+                    <p>Immunotherapy approaches to glioma</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-card-icon">🔬</div>
+                    <h3>Computational</h3>
+                    <p>AI-driven drug discovery & validation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" style="background: var(--black);">
+        <div class="section-inner">
+            <div class="section-label">Leadership</div>
+            <h2 class="section-title">Research-driven team.</h2>
+            <p class="section-text">
+                PhDs, MDs, and AI specialists working at the intersection of computational biology and precision medicine.
+            </p>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-card-avatar">SK</div>
+                    <h3>Santosh Kesari, MD, PhD</h3>
+                    <div class="team-card-role">Scientific Advisor</div>
+                    <div class="team-card-focus">Neuro-Oncology</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-avatar">AM</div>
+                    <h3>Alexander Matov, Ph.D.</h3>
+                    <div class="team-card-role">Research Scientist</div>
+                    <div class="team-card-focus">Computational Biology</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-avatar">BM</div>
+                    <h3>Boris Minev, M.D.</h3>
+                    <div class="team-card-role">Chief Scientific Officer</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-avatar">PM</div>
+                    <h3>Plamen Minev</h3>
+                    <div class="team-card-role">AI Advisor</div>
+                    <div class="team-card-focus">Digital Health</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-avatar">KW</div>
+                    <h3>Kevin Wang</h3>
+                    <div class="team-card-role">Data Science</div>
+                    <div class="team-card-focus">Machine Learning</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <h2>Partner with us.</h2>
+        <p>Research collaborations, clinical partnerships, and institutional inquiries.</p>
+        <a href="mailto:info@curescience.org" class="cta-btn">Contact Our Team</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-mark">
+                            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 4C10 4 14 8 20 8C26 8 30 4 30 4" stroke="url(#dna-grad-f)" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M10 12C10 12 14 16 20 16C26 16 30 12 30 12" stroke="url(#dna-grad-f)" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M10 20C10 20 14 24 20 24C26 24 30 20 30 20" stroke="url(#dna-grad-f)" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M10 28C10 28 14 32 20 32C26 32 30 28 30 28" stroke="url(#dna-grad-f)" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M30 4C30 4 26 8 20 8C14 8 10 4 10 4" stroke="#6e00ff" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                                <path d="M30 12C30 12 26 16 20 16C14 16 10 12 10 12" stroke="#6e00ff" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                                <path d="M30 20C30 20 26 24 20 24C14 24 10 20 10 20" stroke="#6e00ff" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                                <path d="M30 28C30 28 26 32 20 32C14 32 10 28 10 28" stroke="#6e00ff" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                                <circle cx="20" cy="6" r="2" fill="#00ffff"/>
+                                <circle cx="20" cy="14" r="2" fill="#00ffff"/>
+                                <circle cx="20" cy="22" r="2" fill="#00ffff"/>
+                                <circle cx="20" cy="30" r="2" fill="#00ffff"/>
+                                <defs>
+                                    <linearGradient id="dna-grad-f" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#00ffff"/>
+                                        <stop offset="100%" stop-color="#6e00ff"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <span class="logo-text">CureScience</span>
+                    </a>
+                    <p>501(c)(3) nonprofit pioneering deterministic validation for AI-driven precision medicine. San Diego, CA.</p>
+                    <div class="footer-partner">
+                        <span class="footer-partner-label">Powered by</span>
+                        <span class="footer-partner-name">ARBITER</span>
+                    </div>
+                </div>
+                <div class="footer-contact">
+                    <div class="footer-contact-label">Contact</div>
+                    <a href="mailto:info@curescience.org">info@curescience.org</a>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/company/curescience">LinkedIn</a>
+                        <a href="https://twitter.com/curescience">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2025 CureScience Institute</span>
+                <span>Transforming Hope into Cure™</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
